@@ -1594,13 +1594,23 @@ class InsertEdit
 
             return "'" . $this->dbi->escapeString($hash) . "'";
         }
+                
+        if ($multiEditFuncs[$key] === 'UUID') {
+            /* This way user will know what UUID new row has */
+            $uuid = (string) $this->dbi->fetchValue('SELECT UUID()');
+
+            return "'" . $this->dbi->escapeString($uuid) . "'";
+        }
 
         if ($multiEditFuncs[$key] === 'UUID_v4') {
             $uuid_v4 = (string) $this->dbi->fetchValue('SELECT UUID_v4()');
+
             return "'" . $this->dbi->escapeString($uuid_v4) . "'";
         }
+
         if ($multiEditFuncs[$key] === 'UUID_v7') {
             $uuid_v7 = (string) $this->dbi->fetchValue('SELECT UUID_v7()');
+            
             return "'" . $this->dbi->escapeString($uuid_v7) . "'";
         }
 

@@ -47,8 +47,8 @@
       CURRENT_TIMESTAMP
     </option>
     {% if is_uuid_supported() %}
-    <option value="UUID_v1"{{ column_meta['DefaultType'] is defined and column_meta['DefaultType'] == 'UUID' ? ' selected' }}>
-      UUID_v1
+    <option value="UUID"{{ column_meta['DefaultType'] is defined and column_meta['DefaultType'] == 'UUID' ? ' selected' }}>
+      UUID
     </option>
     {# It is necessary to implement checks to verify if the version and type (MariaDB vs. MySQL) support uuid_v4 and uuid_v7 #}
     <option value="UUID_v4"{{ column_meta['DefaultType'] is defined and column_meta['DefaultType'] == 'UUID_v4' ? ' selected' }}>
