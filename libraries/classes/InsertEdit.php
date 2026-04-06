@@ -1595,11 +1595,13 @@ class InsertEdit
             return "'" . $this->dbi->escapeString($hash) . "'";
         }
 
-        if ($multiEditFuncs[$key] === 'UUID') {
-            /* This way user will know what UUID new row has */
-            $uuid = (string) $this->dbi->fetchValue('SELECT UUID()');
-
-            return "'" . $this->dbi->escapeString($uuid) . "'";
+        if ($multiEditFuncs[$key] === 'UUID_v4') {
+            $uuid_v4 = (string) $this->dbi->fetchValue('SELECT UUID_v4()');
+            return "'" . $this->dbi->escapeString($uuid_v4) . "'";
+        }
+        if ($multiEditFuncs[$key] === 'UUID_v7') {
+            $uuid_v7 = (string) $this->dbi->fetchValue('SELECT UUID_v7()');
+            return "'" . $this->dbi->escapeString($uuid_v7) . "'";
         }
 
         if (
@@ -1832,15 +1834,14 @@ class InsertEdit
         }
 
         // For uuid type, generate uuid value
-        // if empty value but not set null or value is uuid() function
-        if (
-            $type === 'uuid'
-                && ! isset($multiEditColumnsNull[$key])
-                && ($currentValue == "''"
-                    || $currentValue == ''
-                    || $currentValue === "'uuid()'")
-        ) {
-            $currentValue = 'uuid()';
+        // if empty value dont do nothing
+        if ($type === 'uuid' && ! isset($multiEditColumnsNull[$key])) {
+            if ($currentValue === "'uuid_v4()'") {
+                $currentValue = 'uuid_v4()';
+            } 
+            elseif ($currentValue === "'uuid_v7()'") {
+                $currentValue = 'uuid_v7()';
+            }
         }
 
         return $currentValue;

@@ -246,8 +246,10 @@ final class ColumnsDefinition
                     case 'NULL':
                     case 'CURRENT_TIMESTAMP':
                     case 'current_timestamp()':
-                    case 'UUID':
-                    case 'uuid()':
+                    case 'UUID_v4':
+                    case 'uuid_v4()':
+                    case 'UUID_v7':
+                    case 'uuid_v7()':
                         $columnMeta['Default'] = $columnMeta['DefaultType'];
                         break;
                 }
@@ -522,10 +524,15 @@ final class ColumnsDefinition
                 $metaDefault['DefaultType'] = 'CURRENT_TIMESTAMP';
 
                 break;
-            case 'UUID':
-            case 'uuid()':
-                $metaDefault['DefaultType'] = 'UUID';
+            case 'UUID_v4':
+            case 'uuid_v4()':
+                $metaDefault['DefaultType'] = 'UUID_v4';
 
+                break;
+            case 'UUID_v7':
+            case 'uuid_v7()':
+                $metaDefault['DefaultType'] = 'UUID_v7';
+                
                 break;
             default:
                 $metaDefault['DefaultValue'] = $columnMeta['Default'];

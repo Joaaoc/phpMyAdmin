@@ -638,9 +638,14 @@ class Table implements Stringable
                         }
 
                         break;
-                    case 'UUID':
-                    case 'uuid()':
-                        $query .= ' DEFAULT uuid()';
+                    case 'UUID_v4':
+                    case 'uuid_v4()':
+                        $query .= ' DEFAULT uuid_v4()';
+
+                        break;
+                    case 'UUID_v7':
+                    case 'uuid_v7()':
+                        $query .= ' DEFAULT uuid_v7()';
 
                         break;
                     case 'NONE':
