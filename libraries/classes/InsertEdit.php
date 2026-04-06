@@ -1836,7 +1836,10 @@ class InsertEdit
         // For uuid type, generate uuid value
         // if empty value dont do nothing
         if ($type === 'uuid' && ! isset($multiEditColumnsNull[$key])) {
-            if ($currentValue === "'uuid_v4()'") {
+            if ($currentValue === "'uuid()'") {
+                $currentValue = 'uuid()';
+            } 
+            elseif ($currentValue === "'uuid_v4()'") {
                 $currentValue = 'uuid_v4()';
             } 
             elseif ($currentValue === "'uuid_v7()'") {
